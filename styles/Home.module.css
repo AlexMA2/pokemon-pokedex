@@ -33,6 +33,10 @@
   flex-grow: 1;
 }
 
+.footer a:hover{
+  text-decoration: underline;
+}
+
 .title a {
   color: #0070f3;
   text-decoration: none;
@@ -118,4 +122,8 @@
     width: 100%;
     flex-direction: column;
   }
+}
+
+.p2 {
+  padding: 6px;
 }

@@ -3,6 +3,7 @@ import {getAllPokemon, getPokemonByName} from '../../services/pokemon.js'
 import CustomLayout from '../../components/CustomLayout'
 import styles from '../../styles/Pokedex.module.css'
 import CardPokemon from '../../components/CardPokemon'
+import Search from "../../components/Search.jsx";
 
 const Pokedex = ({ pokemon }) => {
 
@@ -16,6 +17,7 @@ const Pokedex = ({ pokemon }) => {
 
   return (
     <CustomLayout className={styles.layout}  title={`Pokedex | ${pokemon.name}`}>      
+      <Search placeholder="Busca un nuevo pokemon..."/>
       <CardPokemon 
         img={pokemon.sprites.other.dream_world.front_default} 
         name={pokemon.name} 
@@ -40,7 +42,7 @@ export async function getStaticPaths(){
 
   // We'll pre-render only these paths at build time.
   // { fallback: false } means other routes should 404.
-  return { paths, fallback: false }
+  return { paths, fallback: "blocking" }
 }
 
 export async function getStaticProps({ params }) {  

@@ -10,6 +10,7 @@ async function getAllPokemon() {
 }
 
 async function getPokemonByName(name) {
+    
     const res = await fetch(`${pathAPI}/pokemon/${name}`)   
     return res.json()
 }

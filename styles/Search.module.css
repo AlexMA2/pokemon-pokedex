@@ -1,0 +1,36 @@
+.searcher {
+    border: 1px solid #000;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 1rem;
+    padding: 0.25rem;
+    width: 100%;
+    margin: 0.5rem;
+    max-width: 1200px;
+}
+
+.searcher input {
+    outline: none;
+    border: none;
+    font-size: 1rem;
+    font-weight: 800;
+    text-transform: lowercase;
+    width: 100%;    
+}
+
+.searcher .button {
+    border-radius: 50%;    
+    cursor: pointer;
+    padding: 0.25rem;
+}
+
+.searcher .button:hover {
+    background-color: #f0f0f0;
+    
+}
+
+.searcher input::placeholder {
+    text-transform: capitalize;
+}

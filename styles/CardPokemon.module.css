@@ -3,7 +3,7 @@
     margin: 1rem auto;
     border: 1px solid #cfcfcf;
     display: flex;    
-    
+    border-radius: 0.5rem;
     flex-direction: row;
 }
 
@@ -35,7 +35,7 @@
     justify-content: space-evenly;
     align-items: center;    
     border-left: 1px solid #cfcfcf;
-    width: 100%;
+    width: 50% !important;
 }
 
 .data > div {
@@ -47,12 +47,14 @@
 }
 
 .data > div > div {
+    display: flex;
     height: 100%;
     border-bottom: 1px solid #cfcfcf;
     text-align: center;
     flex-direction: row;
     width: 100%;
-    line-height: 350%
+    justify-content: center;
+    align-items: center;
 }
 
 .data > div > div:last-child {
@@ -68,6 +70,7 @@
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(2, 1fr);
+    height: 100%;
 }
 
 .gridSprites > div {
@@ -90,41 +93,47 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 1rem;
+    margin: 1rem 0;
+    flex-wrap: wrap;
 }
 
 .btns button {
     padding: 1rem;
     font-size: 1rem;
     outline: none;
-    width: 5rem;
+    width: 50%;
     height: 1rem;
     text-align: center;
     line-height: 0rem;
     cursor: pointer;
+    background: none;
+    border: none;    
 }
 
-.btns button:hover {
-    background-color: rgba();
+.indicator {
+    position: relative;
+    width: 50%;
+    height: 5px;
+    top: 1px;
+    transition: left 0.3s;    
 }
 
-.btnMale {
-    margin-right: 0.5rem;
-    border: 1px solid #007AAE;
-    background-color: #94D8F6;
+.btnMale {   
+    color: #007AAE;
 }
 
-.btnFemale {
-    margin-left: 0.5rem;
-    border: 1px solid #AE00A4;
-    background-color: #F694F0;
+.btnFemale {     
+    color: #AE00A4;
 }
 
 .btnMale:hover {
-    background-color: #3DB8EF;
+    color: #3DB8EF;
 }
 
 .btnFemale:hover {
-    background-color: #EF3DE4;
+    color: #EF3DE4;
 }
 
+.value p{
+    text-transform: capitalize;
+}
