@@ -1,0 +1,41 @@
+
+.cell {
+    min-width: 6rem;    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1px;
+}
+
+.headerColumn{
+    text-align: center;    
+    font-weight: bold;
+    letter-spacing: 1px;
+    border: 0;
+    outline: none;
+    background-color: #0a0a0a;
+    color: #fff;
+    padding: 0.25rem;
+    font-size: 1rem;
+}
+
+.headerRow{
+    text-align: center;    
+    font-weight: bold;
+    letter-spacing: 1px;
+    border: 0;
+    outline: none;
+    background-color: #0f8888;
+    color: rgb(195, 245, 17);
+    padding: 0.25rem;
+    font-size: 1rem;  
+}
+
+.normal {   
+    border: 1px solid #000;
+    outline: none; 
+    padding: 0.25rem;
+    font-size: 1rem;  
+    background-color: #fff;
+    color: #000;
+}
