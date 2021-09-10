@@ -1,14 +1,15 @@
-import { useState, useRef, useEffect} from "react";
+import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import styles from "../styles/CardPokemon.module.css";
 import getPokemonColor from "../utils/getPokemonColor.js";
+import JSONTable from "./JSONTable";
 
 const CardPokemon = ({ img, name, sprites, abilities, data }) => {
   const [gender, setgender] = useState(true);
   const [position, setPosition] = useState(-110);
-  const [msgDiference, setmsgDiference] = useState("")
+  const [msgDiference, setmsgDiference] = useState("");
 
-  console.log(name, sprites)
+  const [dataPkm, setDataPkm] = useState({});
 
   const [spritesPkm, setSpritesPkm] = useState([
     sprites.back_default,
@@ -27,30 +28,59 @@ const CardPokemon = ({ img, name, sprites, abilities, data }) => {
       sprites.front_default,
       sprites.front_shiny,
     ]);
-  }, [sprites])
 
-  const toggleGender = () => {
-    setgender(!gender);
     if (
-      sprites.back_female &&
-      sprites.back_shiny_female &&
-      sprites.front_female &&
-      sprites.front_shiny_female
+      !sprites.back_female ||
+      !sprites.back_shiny_female ||
+      !sprites.front_female ||
+      !sprites.front_shiny_female
     ) {
-      setSpritesPkm([
-        sprites.back_female,
-        sprites.back_shiny_female,
-        sprites.front_female,
-        sprites.front_shiny_female,
-      ]);
+      setmsgDiference("No hay diferencia notable entre ambos géneros");
     }
-    else {
-      setmsgDiference("No hay diferencia notable entre ambos géneros")
-      setTimeout(() => {
-        setmsgDiference("")
-      }, 5000);
-    }
+      
+
+    const types = data.types.map((type) => type.type.name);
+    const allAbilities = abilities.map((ability) => ability.ability.name);
+
+    const hiddenAbility = allAbilities.pop();
+    const normalAbilities = allAbilities.length > 0 ? allAbilities : " - ";
+
+    const json = {
+      altura: data.height,
+      peso: data.weight,
+      tipos: types,
+      habilidades: normalAbilities,
+      "Hab. Oculta": hiddenAbility,
+    };
+
+    setDataPkm(json);
+  }, [sprites, abilities, data]);
+
+  const toggleGender = () => {   
+    setgender(!gender);    
+    changeSpritesGender();
     setPosition(gender ? 110 : -110);
+  };
+
+  const changeSpritesGender = () => {
+    
+    if (!gender) {
+      setSpritesPkm([
+        sprites.back_default,
+        sprites.back_shiny,
+        sprites.front_default,
+        sprites.front_shiny,
+      ]);
+    } else {
+      if (msgDiference.length === 0) {
+        setSpritesPkm([
+          sprites.back_female,
+          sprites.back_shiny_female,
+          sprites.front_female,
+          sprites.front_shiny_female,
+        ]);
+      } 
+    }
   };
 
   return (
@@ -130,53 +160,13 @@ const CardPokemon = ({ img, name, sprites, abilities, data }) => {
             <p>Shiny de frente</p>
           </div>
         </div>
-        <h4 style={{height: "28px"}}> {msgDiference}</h4>
-        
+        <h4 style={{ height: "28px" }}> {msgDiference}</h4>
       </div>
 
-      <div
-        className={styles.data}
-        style={{ backgroundColor: getPokemonColor(data.types[0].type.name) }}
-      >
-        <div className={styles.keys}>
-          <div className={styles.key}>
-            <p> Altura: </p>
-          </div>
-          <div className={styles.key}>
-            <p> Peso: </p>
-          </div>
-          <div className={styles.key}>
-            <p> Tipos: </p>
-          </div>
-          {abilities.map((ability, index) => (
-            <div key={index} className={styles.key}>
-              <p>{ability.is_hidden ? "Hab. Oculta: " : "Habilidad: "}</p>
-            </div>
-          ))}
-        </div>
-        <div className={styles.values}>
-          <div className={styles.value}>
-            <p>{data.height}</p>
-          </div>
-          <div className={styles.value}>
-            <p>{data.weight}</p>
-          </div>
-          <div className={styles.value}>
-            {data.types.map((type, index) => (
-              <p className={styles.value} key={index}>
-                {" "}
-                {index > 0 ? " -" : ""}
-                {type.type.name}
-              </p>
-            ))}
-          </div>
-          {abilities.map((ability, index) => (
-            <div key={index} className={styles.value}>
-              <p>{ability.ability.name}</p>
-            </div>
-          ))}
-        </div>
-      </div>
+      <JSONTable
+        json={dataPkm}
+        backgroundColor={getPokemonColor(data.types[0].type.name)}
+      />
     </div>
   );
 };
